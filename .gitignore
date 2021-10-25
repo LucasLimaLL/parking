@@ -200,3 +200,8 @@ fabric.properties
 hs_err_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,eclipse
+/.classpath
+/.project
+/HELP.md
+/mvnw
+/mvnw.cmd
