@@ -1,40 +1,46 @@
 package br.com.lucaslima.parking.usecase.ticket.fechamento;
 
-import br.com.lucaslima.parking.domain.ticket.Ticket;
-import br.com.lucaslima.parking.usecase.ticket.Evento;
-import br.com.lucaslima.parking.usecase.veiculo.ParametrosInvalidosException;
-import org.apache.commons.lang3.StringUtils;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import br.com.lucaslima.parking.domain.ticket.Ticket;
+import br.com.lucaslima.parking.usecase.veiculo.buscar.ParametrosInvalidosException;
+
 /**
- * <p>Classe CancelaTicketUseCase responsável por</p>
+ * <p>
+ * Classe <b>FinalizaTicketUseCase</b> responsável pelo cenário de fechamento de
+ * tickets
+ * </p>
  *
  * @author Lucas Lima
- * @since 25/10/2021
+ * @since 17/09/2021
  **/
 public class FinalizaTicketUseCase {
 
-    private List<EventoFechamento> eventosFechamento;
+	private List<EventoFechamento> eventosFechamento;
 
-    public FinalizaTicketUseCase(
-            List<EventoFechamento> eventosFechamento) {
-        this.eventosFechamento = eventosFechamento;
-    }
+	public FinalizaTicketUseCase(List<EventoFechamento> eventosFechamento) {
+		this.eventosFechamento = eventosFechamento;
+	}
 
-    public Ticket fechar(Ticket ticket, LocalDateTime dataFechamento) {
+	/**
+	 * Método que realiza o fechamento do ticket
+	 * 
+	 * @param ticket         - ticket a ser fechado
+	 * @param dataFechamento - data de fechamento do ticket
+	 * @return Ticket finalizado
+	 */
+	public Ticket fechar(Ticket ticket, LocalDateTime dataFechamento) {
 
-        if (Objects.isNull(ticket) || Objects.isNull(dataFechamento)) {
-            throw new ParametrosInvalidosException("Ticket ou data do fechamento não " +
-                                                   "informados.");
-        }
+		if (Objects.isNull(ticket) || Objects.isNull(dataFechamento)) {
+			throw new ParametrosInvalidosException("Ticket ou data do fechamento não informados.");
+		}
 
-        ticket.finalizar(dataFechamento);
+		ticket.finalizar(dataFechamento);
 
-        eventosFechamento.forEach(evento -> evento.executar(ticket));
+		eventosFechamento.forEach(evento -> evento.executar(ticket));
 
-        return ticket;
-    }
+		return ticket;
+	}
 }

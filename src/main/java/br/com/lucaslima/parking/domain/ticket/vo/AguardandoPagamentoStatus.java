@@ -11,11 +11,17 @@ package br.com.lucaslima.parking.domain.ticket.vo;
  **/
 public class AguardandoPagamentoStatus extends Status {
 
+	/**
+	 * Método que altera o status para Finalizado
+	 */
 	@Override
 	public Status finalizar() {
 		return new FinalizadoStatus();
 	}
 
+	/**
+	 * Método que altera o status para Cancelado
+	 */
 	@Override
 	public Status cancelar() {
 		return new CanceladoStatus();

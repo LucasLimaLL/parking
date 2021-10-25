@@ -20,6 +20,6 @@ public class ValidacaoOcupacaoEstacionamento extends ValidacaoTicket<Ticket> {
 
     @Override
     protected boolean regra(Ticket ticket) {
-        return !ticket.getEstacionamento().verificarCapacidade();
+        return !ticket.getEstacionamento().veiculoPodeSerLiberado();
     }
 }

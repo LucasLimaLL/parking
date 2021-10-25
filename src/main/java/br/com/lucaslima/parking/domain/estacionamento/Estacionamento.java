@@ -80,7 +80,12 @@ public class Estacionamento implements Serializable {
 		return lotacaoMaxima;
 	}
 
-	public boolean verificarCapacidade() {
+	/**
+	 * Método que valida se ainda há capacidade no estacionamento
+	 * 
+	 * @return boolean - se o veículo pode ser estacionado
+	 */
+	public boolean veiculoPodeSerLiberado() {
 		if (this.quantidadeAtual >= this.lotacaoMaxima) {
 			return false;
 		}

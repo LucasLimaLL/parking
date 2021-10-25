@@ -11,7 +11,8 @@ import br.com.lucaslima.parking.domain.veiculo.Veiculo;
 import br.com.lucaslima.parking.domain.veiculo.VeiculoBuilder;
 import br.com.lucaslima.parking.domain.veiculo.vo.TipoVeiculo;
 import br.com.lucaslima.parking.usecase.ticket.cancelamento.CancelaTicketUseCase;
-import br.com.lucaslima.parking.usecase.veiculo.ParametrosInvalidosException;
+import br.com.lucaslima.parking.usecase.veiculo.buscar.ParametrosInvalidosException;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;

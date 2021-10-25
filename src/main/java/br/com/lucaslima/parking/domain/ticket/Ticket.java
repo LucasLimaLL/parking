@@ -145,14 +145,27 @@ public class Ticket implements Serializable {
 		return status;
 	}
 
+	/**
+	 * Método que informa a saída do veículo no ticket
+	 * 
+	 * @param saida - data de saída
+	 */
 	public void informarSaida(LocalDateTime saida) {
 		this.saida = saida;
 	}
 
+	/**
+	 * Método que seta o valor do ticket após o calculo realizado
+	 * 
+	 * @param valor
+	 */
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 
+	/**
+	 * Método que calcula o tempo em que o veiculo esteve no estacionamento
+	 */
 	public void calcularEstadia() {
 		this.status = this.status.pagar();
 		this.estadia = Duration.ZERO;
@@ -162,11 +175,22 @@ public class Ticket implements Serializable {
 		}
 	}
 
+	/**
+	 * Método que fecha o ticket após o pagamento
+	 * 
+	 * @param dataFinalizado - data de fechamento
+	 */
 	public void finalizar(LocalDateTime dataFinalizado) {
 		this.status = this.status.finalizar();
 		this.dataFinalizado = dataFinalizado;
 	}
 
+	/**
+	 * Método que faz o cancelamento do ticket
+	 * 
+	 * @param motivoCancelamento - texto do motivo de cancelamento
+	 * @param dataCancelamento   - data do efetivo cancelamento
+	 */
 	public void cancelar(String motivoCancelamento, LocalDateTime dataCancelamento) {
 		this.status = this.status.cancelar();
 		this.motivoCancelamento = motivoCancelamento;

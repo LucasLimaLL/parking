@@ -11,9 +11,6 @@ package br.com.lucaslima.parking.domain.estacionamento;
  **/
 public class EstacionamentoInvalidoException extends IllegalArgumentException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public EstacionamentoInvalidoException(String message) {

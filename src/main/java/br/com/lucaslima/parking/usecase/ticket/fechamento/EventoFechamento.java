@@ -4,7 +4,10 @@ import br.com.lucaslima.parking.domain.ticket.Ticket;
 import br.com.lucaslima.parking.usecase.ticket.Evento;
 
 /**
- * <p>Interface EventoFechamento responsável por abstrair</p>
+ * <p>
+ * Interface <b>EventoFechamento</b> responsável por abstrair a implementação de
+ * eventos de fechamento de ticket
+ * </p>
  *
  * @author Lucas Lima
  * @since 25/10/2021

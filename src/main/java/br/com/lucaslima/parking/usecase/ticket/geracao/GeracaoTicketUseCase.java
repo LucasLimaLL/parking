@@ -12,23 +12,33 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * <p>Classe GeracaoTicketUseCase responsável por</p>
+ * <p>
+ * Classe <b>GeracaoTicketUseCase</b> responsável pelo cenário de geração de
+ * novos tickets
+ * </p>
  *
  * @author Lucas Lima
- * @since 08/10/2021
+ * @since 17/09/2021
  **/
 public class GeracaoTicketUseCase {
 
-    private List<ValidacaoTicket> validacoes;
+    private List<ValidacaoTicket<Ticket>> validacoes;
     private List<EventoGeracao> eventosGeracao;
 
     public GeracaoTicketUseCase(
-            List<ValidacaoTicket> validacoes,
+            List<ValidacaoTicket<Ticket>> validacoes,
             List<EventoGeracao> eventosGeracao) {
         this.validacoes = validacoes;
         this.eventosGeracao = eventosGeracao;
     }
 
+	/**
+	 * Método que cria um novo ticket
+	 * 
+	 * @param estacionamento - estacionamento origem do ticket
+	 * @param veiculo        - veiculo atrelado ao ticket
+	 * @return ticket gerado
+	 */
     public Ticket gerar(Estacionamento estacionamento, Veiculo veiculo) {
 
         Ticket ticket = new TicketBuilder()

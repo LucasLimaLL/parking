@@ -1,8 +1,13 @@
-package br.com.lucaslima.parking.usecase.veiculo;
+package br.com.lucaslima.parking.usecase.veiculo.buscar;
 
 import br.com.lucaslima.parking.domain.veiculo.vo.Marca;
 import br.com.lucaslima.parking.domain.veiculo.vo.Modelo;
 import br.com.lucaslima.parking.domain.veiculo.vo.TipoVeiculo;
+import br.com.lucaslima.parking.usecase.veiculo.buscar.BuscaModeloRepository;
+import br.com.lucaslima.parking.usecase.veiculo.buscar.BuscaModeloUseCase;
+import br.com.lucaslima.parking.usecase.veiculo.buscar.ParametrosInvalidosException;
+import br.com.lucaslima.parking.usecase.veiculo.buscar.RecursoNaoEncontradoException;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

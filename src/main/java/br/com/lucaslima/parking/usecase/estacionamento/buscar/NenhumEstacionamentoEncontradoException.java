@@ -1,21 +1,19 @@
 package br.com.lucaslima.parking.usecase.estacionamento.buscar;
 
 /**
- * <p>Classe NenhumEstacionamentoEncontradoException responsável por</p>
+ * <p>
+ * Exception <b>NenhumEstacionamentoEncontradoException</b> responsável pelo
+ * cenário de nenhum estacionamento encontrado
+ * </p>
  *
  * @author Lucas Lima
- * @since 30/09/2021
+ * @since 18/10/2021
  **/
 public class NenhumEstacionamentoEncontradoException extends RuntimeException {
-    /**
-     * Constructs a new runtime exception with the specified detail message.
-     * The cause is not initialized, and may subsequently be initialized by a
-     * call to {@link #initCause}.
-     *
-     * @param message the detail message. The detail message is saved for
-     *                later retrieval by the {@link #getMessage()} method.
-     */
-    public NenhumEstacionamentoEncontradoException(String message) {
-        super(message);
-    }
+
+	private static final long serialVersionUID = 1L;
+
+	public NenhumEstacionamentoEncontradoException(String message) {
+		super(message);
+	}
 }
