@@ -1,19 +1,10 @@
 package br.com.lucaslima.parking.usecase.ticket.fechamento;
 
-import br.com.lucaslima.parking.domain.estacionamento.Estacionamento;
-import br.com.lucaslima.parking.domain.estacionamento.EstacionamentoBuilder;
-import br.com.lucaslima.parking.domain.ticket.Ticket;
-import br.com.lucaslima.parking.domain.ticket.TicketBuilder;
-import br.com.lucaslima.parking.domain.ticket.vo.AguardandoPagamentoStatus;
-import br.com.lucaslima.parking.domain.ticket.vo.CanceladoStatus;
-import br.com.lucaslima.parking.domain.ticket.vo.FinalizadoStatus;
-import br.com.lucaslima.parking.domain.veiculo.Veiculo;
-import br.com.lucaslima.parking.domain.veiculo.VeiculoBuilder;
-import br.com.lucaslima.parking.domain.veiculo.vo.TipoVeiculo;
-import br.com.lucaslima.parking.usecase.ticket.cancelamento.CancelaTicketUseCase;
-import br.com.lucaslima.parking.usecase.veiculo.buscar.ParametrosInvalidosException;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -21,7 +12,18 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import br.com.lucaslima.parking.domain.estacionamento.Estacionamento;
+import br.com.lucaslima.parking.domain.estacionamento.EstacionamentoBuilder;
+import br.com.lucaslima.parking.domain.ticket.Ticket;
+import br.com.lucaslima.parking.domain.ticket.TicketBuilder;
+import br.com.lucaslima.parking.domain.ticket.vo.AguardandoPagamentoStatus;
+import br.com.lucaslima.parking.domain.ticket.vo.FinalizadoStatus;
+import br.com.lucaslima.parking.domain.veiculo.Veiculo;
+import br.com.lucaslima.parking.domain.veiculo.VeiculoBuilder;
+import br.com.lucaslima.parking.domain.veiculo.vo.TipoVeiculo;
+import br.com.lucaslima.parking.usecase.veiculo.buscar.ParametrosInvalidosException;
 
 class FinalizaTicketUseCaseTest {
     private FinalizaTicketUseCase finalizaTicketUseCase = new FinalizaTicketUseCase(Collections.emptyList());

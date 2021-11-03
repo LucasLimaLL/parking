@@ -5,6 +5,7 @@ import br.com.lucaslima.parking.domain.ticket.Ticket;
 import br.com.lucaslima.parking.domain.ticket.TicketBuilder;
 import br.com.lucaslima.parking.domain.ticket.vo.EmAbertoStatus;
 import br.com.lucaslima.parking.domain.veiculo.Veiculo;
+import br.com.lucaslima.parking.usecase.ticket.validacao.Validacao;
 import br.com.lucaslima.parking.usecase.ticket.validacao.ValidacaoTicket;
 
 import java.time.LocalDateTime;
@@ -22,23 +23,23 @@ import java.util.UUID;
  **/
 public class GeracaoTicketUseCase {
 
-    private List<ValidacaoTicket<Ticket>> validacoes;
+    private List<Validacao> validacoes;
     private List<EventoGeracao> eventosGeracao;
 
     public GeracaoTicketUseCase(
-            List<ValidacaoTicket<Ticket>> validacoes,
+            List<Validacao> validacoes,
             List<EventoGeracao> eventosGeracao) {
         this.validacoes = validacoes;
         this.eventosGeracao = eventosGeracao;
     }
 
-	/**
-	 * Método que cria um novo ticket
-	 * 
-	 * @param estacionamento - estacionamento origem do ticket
-	 * @param veiculo        - veiculo atrelado ao ticket
-	 * @return ticket gerado
-	 */
+    /**
+     * Método que cria um novo ticket
+     *
+     * @param estacionamento - estacionamento origem do ticket
+     * @param veiculo        - veiculo atrelado ao ticket
+     * @return ticket gerado
+     */
     public Ticket gerar(Estacionamento estacionamento, Veiculo veiculo) {
 
         Ticket ticket = new TicketBuilder()
@@ -52,7 +53,7 @@ public class GeracaoTicketUseCase {
 
         this.validacoes.forEach(validacao -> validacao.validar(ticket));
         this.eventosGeracao.forEach(evento -> evento.executar(ticket));
-        
+
         return ticket;
     }
 }
