@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -53,6 +55,8 @@ class FinalizaTicketUseCaseTest {
             .entrada(LocalDateTime.now()
                                   .minus(1, ChronoUnit.HOURS))
             .saida(LocalDateTime.now())
+            .valor(BigDecimal.ZERO)
+            .estadia(Duration.ofHours(1))
             .status(new AguardandoPagamentoStatus())
             .build();
 

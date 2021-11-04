@@ -1,6 +1,5 @@
 package br.com.lucaslima.parking.usecase.ticket.pesquisa.validacoes;
 
-import br.com.lucaslima.parking.domain.ticket.TicketInvalidoException;
 import br.com.lucaslima.parking.usecase.ticket.validacao.Validacao;
 import br.com.lucaslima.parking.usecase.veiculo.buscar.ParametrosInvalidosException;
 

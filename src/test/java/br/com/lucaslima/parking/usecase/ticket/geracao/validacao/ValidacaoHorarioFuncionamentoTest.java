@@ -1,7 +1,18 @@
 package br.com.lucaslima.parking.usecase.ticket.geracao.validacao;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+import org.junit.jupiter.api.Test;
+
 import br.com.lucaslima.parking.domain.estacionamento.Estacionamento;
 import br.com.lucaslima.parking.domain.estacionamento.EstacionamentoBuilder;
+import br.com.lucaslima.parking.domain.ticket.Ticket;
 import br.com.lucaslima.parking.domain.ticket.TicketBuilder;
 import br.com.lucaslima.parking.domain.ticket.TicketInvalidoException;
 import br.com.lucaslima.parking.domain.ticket.vo.EmAbertoStatus;
@@ -9,17 +20,10 @@ import br.com.lucaslima.parking.domain.veiculo.Veiculo;
 import br.com.lucaslima.parking.domain.veiculo.VeiculoBuilder;
 import br.com.lucaslima.parking.domain.veiculo.vo.TipoVeiculo;
 import br.com.lucaslima.parking.usecase.ticket.validacao.ValidacaoTicket;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ValidacaoHorarioFuncionamentoTest {
 
-    private ValidacaoTicket validacao = new ValidacaoHorarioFuncionamento();
+    private ValidacaoTicket<Ticket> validacao = new ValidacaoHorarioFuncionamento();
 
     private Estacionamento estacionamentoHoraDentro = new EstacionamentoBuilder()
             .identificador("00000000-0000-0000-0000-000000000000")

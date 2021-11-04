@@ -1,13 +1,16 @@
 package br.com.lucaslima.parking.domain.estacionamento;
 
+import br.com.lucaslima.parking.domain.estacionamento.validacoes.EstacionamentoPredicate;
+import br.com.lucaslima.parking.domain.estacionamento.validacoes.HorarioFuncionamentoNaoInformadoPredicate;
+import br.com.lucaslima.parking.domain.estacionamento.validacoes.IdentificadorNaoInformadoPredicate;
+import br.com.lucaslima.parking.domain.estacionamento.validacoes.LotacaoMaximaNaoInformadaPredicate;
+import br.com.lucaslima.parking.domain.estacionamento.validacoes.NomeNaoInformadoPredicate;
+import br.com.lucaslima.parking.domain.estacionamento.validacoes.QuantidadeAtualMaiorLotacaoMaximaPredicate;
+import br.com.lucaslima.parking.domain.estacionamento.validacoes.QuantidadeAtualNaoInformadaPredicate;
+import br.com.lucaslima.parking.domain.estacionamento.vo.HorarioFuncionamento;
+
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.CollectionUtils;
-
-import br.com.lucaslima.parking.domain.estacionamento.vo.HorarioFuncionamento;
 
 /**
  * <p>
@@ -20,77 +23,72 @@ import br.com.lucaslima.parking.domain.estacionamento.vo.HorarioFuncionamento;
  **/
 public class Estacionamento implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private String identificador;
-	private String nome;
-	private List<HorarioFuncionamento> horarioFuncionamento;
-	private Integer quantidadeAtual;
-	private Integer lotacaoMaxima;
+    private final static List<EstacionamentoPredicate> VALIDACOES;
 
-	public Estacionamento(String identificador, String nome, List<HorarioFuncionamento> horarioFuncionamento,
-			Integer quantidadeAtual, Integer lotacaoMaxima) {
+    static {
+        VALIDACOES = List.of(
+                new IdentificadorNaoInformadoPredicate(),
+                new NomeNaoInformadoPredicate(),
+                new HorarioFuncionamentoNaoInformadoPredicate(),
+                new QuantidadeAtualNaoInformadaPredicate(),
+                new LotacaoMaximaNaoInformadaPredicate(),
+                new QuantidadeAtualMaiorLotacaoMaximaPredicate()
+                            );
+    }
+    private static final long serialVersionUID = 1L;
+    private String identificador;
+    private String nome;
+    private List<HorarioFuncionamento> horarioFuncionamento;
+    private Integer quantidadeAtual;
+    private Integer lotacaoMaxima;
 
-		if (StringUtils.isBlank(identificador)) {
-			throw new EstacionamentoInvalidoException("Identificador não informado.");
-		}
+    public Estacionamento(String identificador, String nome, List<HorarioFuncionamento> horarioFuncionamento,
+                          Integer quantidadeAtual, Integer lotacaoMaxima) {
 
-		if (StringUtils.isBlank(nome)) {
-			throw new EstacionamentoInvalidoException("Nome não informado.");
-		}
+        this.identificador = identificador;
+        this.nome = nome;
+        this.horarioFuncionamento = horarioFuncionamento;
+        this.quantidadeAtual = quantidadeAtual;
+        this.lotacaoMaxima = lotacaoMaxima;
 
-		if (CollectionUtils.isEmpty(horarioFuncionamento)) {
-			throw new EstacionamentoInvalidoException("Horário de funcionamento não informado.");
-		}
+        VALIDACOES.forEach(validacao -> {
+            if (validacao.test(this)) {
+                throw new EstacionamentoInvalidoException(validacao.getMensagem());
+            }
+        });
+    }
 
-		if (Objects.isNull(quantidadeAtual)) {
-			throw new EstacionamentoInvalidoException("Quantidade atual não informada.");
-		}
+    public String getIdentificador() {
+        return identificador;
+    }
 
-		if (Objects.isNull(lotacaoMaxima)) {
-			throw new EstacionamentoInvalidoException("Lotação máxima não informada.");
-		}
+    public String getNome() {
+        return nome;
+    }
 
-		if (quantidadeAtual > lotacaoMaxima) {
-			throw new EstacionamentoInvalidoException("Quantidade atual não pode ser maior que a lotação máxima.");
-		}
-		this.identificador = identificador;
-		this.nome = nome;
-		this.horarioFuncionamento = horarioFuncionamento;
-		this.quantidadeAtual = quantidadeAtual;
-		this.lotacaoMaxima = lotacaoMaxima;
-	}
+    public List<HorarioFuncionamento> getHorarioFuncionamento() {
+        return horarioFuncionamento;
+    }
 
-	public String getIdentificador() {
-		return identificador;
-	}
+    public Integer getQuantidadeAtual() {
+        return quantidadeAtual;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public Integer getLotacaoMaxima() {
+        return lotacaoMaxima;
+    }
 
-	public List<HorarioFuncionamento> getHorarioFuncionamento() {
-		return horarioFuncionamento;
-	}
+    /**
+     * Método que valida se ainda há capacidade no estacionamento
+     *
+     * @return boolean - se o veículo pode ser estacionado
+     */
+    public boolean veiculoPodeSerLiberado() {
+        if (this.quantidadeAtual >= this.lotacaoMaxima) {
+            return false;
+        }
 
-	public Integer getQuantidadeAtual() {
-		return quantidadeAtual;
-	}
-
-	public Integer getLotacaoMaxima() {
-		return lotacaoMaxima;
-	}
-
-	/**
-	 * Método que valida se ainda há capacidade no estacionamento
-	 * 
-	 * @return boolean - se o veículo pode ser estacionado
-	 */
-	public boolean veiculoPodeSerLiberado() {
-		if (this.quantidadeAtual >= this.lotacaoMaxima) {
-			return false;
-		}
-
-		this.quantidadeAtual++;
-		return true;
-	}
+        this.quantidadeAtual++;
+        return true;
+    }
 }

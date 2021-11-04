@@ -8,7 +8,6 @@ import br.com.lucaslima.parking.usecase.ticket.validacao.Validacao;
 import br.com.lucaslima.parking.usecase.veiculo.buscar.ParametrosInvalidosException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,10 +24,10 @@ import java.util.Objects;
  **/
 public class PesquisaTicketUseCase {
 
-    private final List<Validacao> validacoes;
+    private final List<Validacao<TicketFiltro>> validacoes;
     private final PesquisaTicketRepository pesquisaTicketRepository;
 
-    public PesquisaTicketUseCase(List<Validacao> validacoes, PesquisaTicketRepository pesquisaTicketRepository) {
+    public PesquisaTicketUseCase(List<Validacao<TicketFiltro>> validacoes, PesquisaTicketRepository pesquisaTicketRepository) {
         this.validacoes = validacoes;
         this.pesquisaTicketRepository = pesquisaTicketRepository;
     }

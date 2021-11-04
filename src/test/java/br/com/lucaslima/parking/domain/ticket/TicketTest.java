@@ -12,6 +12,7 @@ import br.com.lucaslima.parking.domain.veiculo.VeiculoBuilder;
 import br.com.lucaslima.parking.domain.veiculo.vo.TipoVeiculo;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -72,6 +73,8 @@ class TicketTest {
                                                     .entrada(LocalDateTime.now()
                                                                           .minus(1, ChronoUnit.HOURS))
                                                     .saida(LocalDateTime.now())
+                                                    .valor(BigDecimal.ZERO)
+                                                    .estadia(Duration.ofHours(1))
                                                     .status(new AguardandoPagamentoStatus())
                                                     .build());
     }
@@ -90,6 +93,8 @@ class TicketTest {
                                                     .entrada(LocalDateTime.now()
                                                                           .minus(1, ChronoUnit.HOURS))
                                                     .saida(LocalDateTime.now())
+                                                    .valor(BigDecimal.ZERO)
+                                                    .estadia(Duration.ofHours(1))
                                                     .dataCancelamento(LocalDateTime.now())
                                                     .motivoCancelamento("Motivo qualquer.")
                                                     .status(new CanceladoStatus())
@@ -111,6 +116,7 @@ class TicketTest {
                                                                           .minus(1, ChronoUnit.HOURS))
                                                     .saida(LocalDateTime.now())
                                                     .estadia(Duration.ofHours(1))
+                                                    .valor(BigDecimal.TEN)
                                                     .dataFinalizado(LocalDateTime.now())
                                                     .status(new FinalizadoStatus())
                                                     .build());
@@ -201,6 +207,25 @@ class TicketTest {
 
     /**
      * <p>
+     * Método <b>testConstrutorFalhaSemStatus</b> responsável por testar o
+     * cenário de falha no construtor não informando o status
+     * </p>
+     **/
+    @Test
+    void testConstrutorFalhaSemStatus() {
+        Exception exception = assertThrows(Exception.class,
+                () -> new TicketBuilder().identificador("00000000-0000-0000-0000-000000000000")
+                                         .estacionamento(estacionamento)
+                                         .veiculo(veiculo)
+                                         .entrada(LocalDateTime.now())
+                                         .build());
+
+        assertTrue(exception instanceof TicketInvalidoException);
+        assertEquals("Status não informado.", exception.getLocalizedMessage());
+    }
+
+    /**
+     * <p>
      * Método <b>testConstrutorFalhaSemDataSaida</b> responsável por testar o
      * cenário de falha no construtor não informando a data de saída
      * </p>
@@ -236,6 +261,8 @@ class TicketTest {
                                          .entrada(LocalDateTime.now()
                                                                .plus(1, ChronoUnit.HOURS))
                                          .saida(LocalDateTime.now())
+                                         .valor(BigDecimal.ZERO)
+                                         .estadia(Duration.ofHours(1))
                                          .status(new AguardandoPagamentoStatus())
                                          .build());
 
@@ -260,6 +287,8 @@ class TicketTest {
                                          .entrada(LocalDateTime.now()
                                                                .minus(1, ChronoUnit.HOURS))
                                          .saida(LocalDateTime.now())
+                                         .valor(BigDecimal.ZERO)
+                                         .estadia(Duration.ofHours(1))
                                          .dataCancelamento(LocalDateTime.now())
                                          .status(new CanceladoStatus())
                                          .build());
@@ -285,6 +314,8 @@ class TicketTest {
                                          .entrada(LocalDateTime.now()
                                                                .minus(1, ChronoUnit.HOURS))
                                          .saida(LocalDateTime.now())
+                                         .valor(BigDecimal.ZERO)
+                                         .estadia(Duration.ofHours(1))
                                          .motivoCancelamento("Motivo qualquer.")
                                          .status(new CanceladoStatus())
                                          .build());
@@ -310,6 +341,7 @@ class TicketTest {
                                                                .minus(1, ChronoUnit.HOURS))
                                          .saida(LocalDateTime.now())
                                          .estadia(Duration.ofHours(1))
+                                         .valor(BigDecimal.TEN)
                                          .status(new FinalizadoStatus())
                                          .build());
 
@@ -354,6 +386,8 @@ class TicketTest {
                                                .entrada(LocalDateTime.now()
                                                                      .minus(1, ChronoUnit.HOURS))
                                                .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
                                                .status(new AguardandoPagamentoStatus())
                                                .build();
 
@@ -379,6 +413,8 @@ class TicketTest {
                                                .entrada(LocalDateTime.now()
                                                                      .minus(1, ChronoUnit.HOURS))
                                                .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
                                                .motivoCancelamento("Motivo de cancelamento qualquer.")
                                                .dataCancelamento(LocalDateTime.now())
                                                .status(new CanceladoStatus())
@@ -406,6 +442,8 @@ class TicketTest {
                                                .entrada(LocalDateTime.now()
                                                                      .minus(1, ChronoUnit.HOURS))
                                                .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
                                                .dataFinalizado(LocalDateTime.now())
                                                .status(new FinalizadoStatus())
                                                .build();
@@ -433,6 +471,8 @@ class TicketTest {
                                                .entrada(LocalDateTime.now()
                                                                      .minus(1, ChronoUnit.HOURS))
                                                .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
                                                .status(new AguardandoPagamentoStatus())
                                                .build();
 
@@ -479,6 +519,8 @@ class TicketTest {
                                                .entrada(LocalDateTime.now()
                                                                      .minus(1, ChronoUnit.HOURS))
                                                .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
                                                .dataCancelamento(LocalDateTime.now())
                                                .motivoCancelamento("Motivo de cancelamento qualquer.")
                                                .status(new CanceladoStatus())
@@ -506,6 +548,8 @@ class TicketTest {
                                                .entrada(LocalDateTime.now()
                                                                      .minus(1, ChronoUnit.HOURS))
                                                .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
                                                .dataFinalizado(LocalDateTime.now())
                                                .status(new FinalizadoStatus())
                                                .build();
@@ -533,10 +577,95 @@ class TicketTest {
                                                .entrada(LocalDateTime.now()
                                                                      .minus(1, ChronoUnit.HOURS))
                                                .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
                                                .status(new AguardandoPagamentoStatus())
                                                .build();
 
             ticket.cancelar("Motivo qualquer para cancelamento.", LocalDateTime.now());
         });
+    }
+
+
+
+    /**
+     * <p>
+     * Método <b>testCancelarFalhaStatusEmAberto</b> responsável por testar o
+     * cenário de falha de alteração de status de em aberto para cancelado
+     * </p>
+     **/
+    @Test
+    void testCancelarFalhaStatusEmAberto() {
+        Exception exception = assertThrows(Exception.class, () -> {
+            Ticket ticket = new TicketBuilder().identificador("00000000-0000-0000-0000-000000000000")
+                                               .estacionamento(estacionamento)
+                                               .veiculo(veiculo)
+                                               .entrada(LocalDateTime.now()
+                                                                     .minus(1, ChronoUnit.HOURS))
+                                               .status(new EmAbertoStatus())
+                                               .build();
+
+            ticket.cancelar("Motivo de Cancelamento", LocalDateTime.now());
+        });
+
+        assertTrue(exception instanceof AlteracaoStatusInvalidoException);
+        assertEquals("Ticket não pode ir para status 'Cancelado'", exception.getLocalizedMessage());
+    }
+
+    /**
+     * <p>
+     * Método <b>testCancelarFalhaStatusCancelado</b> responsável por testar o
+     * cenário de falha de alteração de status de cancelado para cancelado
+     * </p>
+     **/
+    @Test
+    void testCancelarFalhaStatusCancelado() {
+        Exception exception = assertThrows(Exception.class, () -> {
+            Ticket ticket = new TicketBuilder().identificador("00000000-0000-0000-0000-000000000000")
+                                               .estacionamento(estacionamento)
+                                               .veiculo(veiculo)
+                                               .entrada(LocalDateTime.now()
+                                                                     .minus(1, ChronoUnit.HOURS))
+                                               .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
+                                               .dataCancelamento(LocalDateTime.now())
+                                               .motivoCancelamento("Motivo de cancelamento qualquer.")
+                                               .status(new CanceladoStatus())
+                                               .build();
+
+            ticket.cancelar("Motivo de Cancelamento", LocalDateTime.now());
+        });
+
+        assertTrue(exception instanceof AlteracaoStatusInvalidoException);
+        assertEquals("Ticket não pode ir para status 'Cancelado'", exception.getLocalizedMessage());
+    }
+
+    /**
+     * <p>
+     * Método <b>testCancelarFalhaStatusFinalizado</b> responsável por testar o
+     * cenário de falha de alteração de status de finalizado para cancelado
+     * </p>
+     **/
+    @Test
+    void testCancelarFalhaStatusFinalizado() {
+        Exception exception = assertThrows(Exception.class, () -> {
+            Ticket ticket = new TicketBuilder().identificador("00000000-0000-0000-0000-000000000000")
+                                               .estacionamento(estacionamento)
+                                               .veiculo(veiculo)
+                                               .entrada(LocalDateTime.now()
+                                                                     .minus(1, ChronoUnit.HOURS))
+                                               .saida(LocalDateTime.now())
+                                               .valor(BigDecimal.ZERO)
+                                               .estadia(Duration.ofHours(1))
+                                               .dataFinalizado(LocalDateTime.now())
+                                               .status(new FinalizadoStatus())
+                                               .build();
+
+            ticket.cancelar("Motivo de Cancelamento", LocalDateTime.now());
+        });
+
+        assertTrue(exception instanceof AlteracaoStatusInvalidoException);
+        assertEquals("Ticket não pode ir para status 'Cancelado'", exception.getLocalizedMessage());
     }
 }

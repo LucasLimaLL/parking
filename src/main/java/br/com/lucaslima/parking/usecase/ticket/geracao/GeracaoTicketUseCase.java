@@ -6,7 +6,6 @@ import br.com.lucaslima.parking.domain.ticket.TicketBuilder;
 import br.com.lucaslima.parking.domain.ticket.vo.EmAbertoStatus;
 import br.com.lucaslima.parking.domain.veiculo.Veiculo;
 import br.com.lucaslima.parking.usecase.ticket.validacao.Validacao;
-import br.com.lucaslima.parking.usecase.ticket.validacao.ValidacaoTicket;
 
 import java.time.LocalDateTime;
 import java.util.List;

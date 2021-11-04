@@ -1,5 +1,25 @@
 package br.com.lucaslima.parking.usecase.ticket.pesquisa;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import br.com.lucaslima.parking.domain.estacionamento.Estacionamento;
 import br.com.lucaslima.parking.domain.estacionamento.EstacionamentoBuilder;
 import br.com.lucaslima.parking.domain.ticket.Ticket;
@@ -8,24 +28,6 @@ import br.com.lucaslima.parking.domain.ticket.vo.AguardandoPagamentoStatus;
 import br.com.lucaslima.parking.domain.veiculo.Veiculo;
 import br.com.lucaslima.parking.domain.veiculo.VeiculoBuilder;
 import br.com.lucaslima.parking.domain.veiculo.vo.TipoVeiculo;
-import br.com.lucaslima.parking.usecase.estacionamento.buscar.BuscaEstacionamentoUseCase;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PesquisaTicketUseCaseTest {
@@ -60,6 +62,8 @@ class PesquisaTicketUseCaseTest {
             .entrada(LocalDateTime.now()
                                   .minus(1, ChronoUnit.HOURS))
             .saida(LocalDateTime.now())
+            .valor(BigDecimal.ZERO)
+            .estadia(Duration.ofHours(1))
             .status(new AguardandoPagamentoStatus())
             .build();
     private Ticket ticket2 = new TicketBuilder()
@@ -69,6 +73,8 @@ class PesquisaTicketUseCaseTest {
             .entrada(LocalDateTime.now()
                                   .minus(1, ChronoUnit.HOURS))
             .saida(LocalDateTime.now())
+            .valor(BigDecimal.ZERO)
+            .estadia(Duration.ofHours(1))
             .status(new AguardandoPagamentoStatus())
             .build();
 
@@ -78,7 +84,8 @@ class PesquisaTicketUseCaseTest {
         pesquisaTicketUseCase = new PesquisaTicketUseCase(Collections.emptyList(), pesquisaTicketRepository);
     }
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     void testBuscarPorParametrosEstacionamentoPeriodosStatus() {
         when(pesquisaTicketRepository.buscar(Mockito.any(Estacionamento.class), Mockito.any(LocalDateTime.class),
                 Mockito.any(LocalDateTime.class), Mockito.any(List.class))).thenReturn(List.of(ticket1, ticket2));
